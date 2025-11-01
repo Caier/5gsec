@@ -1,8 +1,10 @@
 services:
   gnb:
     image: gradiant/srsran-5g:24_04
-    command: 
-      - gnb 
+    entrypoint: [/bin/sh, -c, head -c -1 entrypoint.sh > x && echo -n " -c gnbadd.yaml" >> x && bash x gnb]
+    command: gnb
+    volumes:
+      - ./config/gnb.yaml:/gnbadd.yaml
     privileged: true
     cap_add:
       - all
@@ -26,6 +28,7 @@ services:
      
   ue:
     image: gradiant/srsran-4g:23_11
+    entrypoint: [/bin/sh, -c, "(sleep 5 && ip r r default via 10.45.0.1) & ./entrypoint.sh ue"]
     command: 
       - ue
     privileged: true

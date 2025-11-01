@@ -79,8 +79,8 @@ services:
     user: root
     command:
       - open5gs-upfd
-    volumes:
-      - /dev/net/tun:/dev/net/tun
+    # volumes:
+    #   - /dev/net/tun:/dev/net/tun
     privileged: true
     restart: on-failure
     ports:
