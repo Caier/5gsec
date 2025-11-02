@@ -49,10 +49,10 @@ services:
     command: open5gs-scpd
     environment:
       DB_URI: mongodb://mongo/open5gs
-    restart: on-failure    
+    restart: on-failure
+    
   smf:
     image: gradiant/open5gs:2.7.5
-    #It is necessary to mount the configuration file if pcfr is not deployed
     volumes:
     - ./config/smf.yaml:/opt/open5gs/etc/open5gs/smf.yaml
     ports:
@@ -79,8 +79,6 @@ services:
     user: root
     command:
       - open5gs-upfd
-    # volumes:
-    #   - /dev/net/tun:/dev/net/tun
     privileged: true
     restart: on-failure
     ports:
