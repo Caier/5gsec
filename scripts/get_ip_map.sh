@@ -17,4 +17,5 @@ ip_map() {
 
 ip_map "$SCRIPT_DIR/../core.yaml"
 ip_map "$SCRIPT_DIR/../ran.yaml"
+ip_map "$SCRIPT_DIR/../free5gc.yaml"
 wait

@@ -8,6 +8,7 @@ _assign_short_names__() {
 
     alias dcc="docker compose -f \"$SCRIPT_DIR/../core.yaml\""
     alias dcr="docker compose -f \"$SCRIPT_DIR/../ran.yaml\""
+    alias df5="docker compose -f \"$SCRIPT_DIR/../free5gc.yaml\""
 }
 
 _assign_short_names__ "$0"

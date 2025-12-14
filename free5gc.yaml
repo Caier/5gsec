@@ -1,0 +1,61 @@
+volumes:
+  free5gc_db:
+
+services:
+  db:
+    container_name: mongodb
+    image: mongo:4.4
+    command: mongod --port 27017
+    expose:
+      - "27017"
+    volumes:
+      - free5gc_db:/data/db
+
+  free5gc-nrf:
+    container_name: nrf
+    image: free5gc/nrf:v4.1.0
+    command: ./nrf -c ./config/nrfcfg.yaml
+    expose:
+      - "8000"
+    volumes:
+      - ./configf5gc/nrfcfg.yaml:/free5gc/config/nrfcfg.yaml
+      # - ./cert:/free5gc/cert
+    environment:
+      DB_URI: mongodb://db/free5gc
+      GIN_MODE: release
+    depends_on:
+      - db
+
+  free5gc-udr:
+    container_name: udr
+    image: free5gc/udr:v4.1.0
+    command: ./udr -c ./config/udrcfg.yaml
+    expose:
+      - "8000"
+    volumes:
+      - ./configf5gc/udrcfg.yaml:/free5gc/config/udrcfg.yaml
+      # - ./cert:/free5gc/cert
+    environment:
+      DB_URI: mongodb://db/free5gc
+      GIN_MODE: release
+    depends_on:
+      - db
+      - free5gc-nrf
+
+  free5gc-webui:
+    container_name: webui
+    image: free5gc/webui:v4.1.0
+    command: ./webui -c ./config/webuicfg.yaml
+    expose:
+      - "2121"
+    volumes:
+      - ./configf5gc/webuicfg.yaml:/free5gc/config/webuicfg.yaml
+    environment:
+      - GIN_MODE=release
+    ports:
+      - "5000:5000"
+      - "2122:2122"
+      - "2121:2121"
+    depends_on:
+      - db
+      - free5gc-nrf
