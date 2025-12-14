@@ -14,10 +14,10 @@ smf:
       - dev: eth0
         port: 7777
     client:
-      # nrf:
-      #   - uri: http://nrf:7777
-      scp:
-        - uri: http://scp:7777
+      nrf:
+        - uri: http://nrf:7777
+      # scp:
+      # - uri: http://scp:7777
   pfcp:
     server:
       - dev: eth0

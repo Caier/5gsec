@@ -13,43 +13,55 @@ services:
       - open5gs-amfd
     ports:
       - 9090:9090
+    volumes:
+    - ./config/amf.yaml:/opt/open5gs/etc/open5gs/amf.yaml
     restart : on-failure
     
   ausf:
     image: gradiant/open5gs:2.7.5
     command: 
       - open5gs-ausfd
+    volumes:
+    - ./config/ausf.yaml:/opt/open5gs/etc/open5gs/ausf.yaml
     restart : on-failure
     
   bsf:
     image: gradiant/open5gs:2.7.5
     command: open5gs-bsfd
     restart : on-failure
+    volumes:
+    - ./config/bsf.yaml:/opt/open5gs/etc/open5gs/bsf.yaml
     
   nrf:
     image: gradiant/open5gs:2.7.5
     command: open5gs-nrfd
-    restart : on-failure 
+    restart : on-failure
+    volumes:
+    - ./config/nrf.yaml:/opt/open5gs/etc/open5gs/nrf.yaml 
     
   nssf:
     image: gradiant/open5gs:2.7.5
     command: open5gs-nssfd   
-    restart : on-failure 
+    restart : on-failure
+    volumes:
+    - ./config/nssf.yaml:/opt/open5gs/etc/open5gs/nssf.yaml 
     
   pcf:
     image: gradiant/open5gs:2.7.5
     command: 
       - open5gs-pcfd
+    volumes:
+    - ./config/pcf.yaml:/opt/open5gs/etc/open5gs/pcf.yaml
     environment:
       DB_URI: mongodb://mongo/open5gs
     restart : on-failure
     
-  scp:
-    image: gradiant/open5gs:2.7.5
-    command: open5gs-scpd
-    environment:
-      DB_URI: mongodb://mongo/open5gs
-    restart: on-failure
+  # scp:
+    # image: gradiant/open5gs:2.7.5
+    # command: open5gs-scpd
+    # environment:
+      # DB_URI: mongodb://mongo/open5gs
+    # restart: on-failure
     
   smf:
     image: gradiant/open5gs:2.7.5
@@ -63,6 +75,8 @@ services:
   udm:
     image: gradiant/open5gs:2.7.5
     restart: on-failure
+    volumes:
+    - ./config/udm.yaml:/opt/open5gs/etc/open5gs/udm.yaml
     command: 
       - open5gs-udmd
     
@@ -71,6 +85,8 @@ services:
     restart: on-failure
     environment:
       DB_URI: mongodb://mongo/open5gs
+    volumes:
+    - ./config/udr.yaml:/opt/open5gs/etc/open5gs/udr.yaml
     command: 
       - open5gs-udrd
     
@@ -81,6 +97,8 @@ services:
       - open5gs-upfd
     privileged: true
     restart: on-failure
+    volumes:
+    - ./config/upf.yaml:/opt/open5gs/etc/open5gs/upf.yaml
     ports:
       - 2152:2152
     
