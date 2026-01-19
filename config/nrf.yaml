@@ -9,6 +9,10 @@ global:
 #    peer: 64
 
 nrf:
+  time:
+    nf_instance:
+      heartbeat: 9999
+
   serving: # 5G roaming requires PLMN in NRF
   - plmn_id:
       mcc: 999

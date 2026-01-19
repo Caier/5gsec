@@ -1,0 +1,3 @@
+[submodule "open5gs"]
+	path = open5gs
+	url = git@github.com:Caier/open5gs.git
